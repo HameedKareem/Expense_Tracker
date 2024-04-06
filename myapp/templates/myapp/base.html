@@ -1,0 +1,59 @@
+{% load static tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        {% tailwind_css %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% comment %} <link rel="stylesheet" href="{% static 'myapp/styles.css' %}"> {% endcomment %}
+        <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="shadow-lg p-5">
+            <div class="container flex felx-wrap justify-between itens-center mx-auto">
+                <a href="#" class='flex'>
+                    <img class="h-10 mr-3" src="{% static 'myapp/images/wallet.png' %}" alt="logo">
+                    <span class="self-center text-xl font-semibold">Expense Tracker</span>
+                </a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'myapp:logout' %}">Logout</a> 
+                    <a href="{% url 'myapp:profile' %}">Profile</a> 
+                {% else %}
+                    <a href="{% url 'myapp:login' %}">Login</a> 
+                {% endif %}
+            </div>
+        </nav>
+
+
+
+
+        <div role="alert">
+            {% if messages %}
+            {% for message in messages %}
+            {% comment %} <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2 alert alert-{{ message.tags }}">
+              Welcome
+            </div> {% endcomment %}
+            <div class="border border-t-0 border-green-400 rounded-b bg-green-200 px-4 py-3 text-green">
+              {{message}}
+            </div>
+            {%endfor%}
+            {%endif%}
+          </div>
+
+
+        {% block body %}
+        {% endblock %}
+        <script src="" async defer></script>
+    </body>
+</html>
